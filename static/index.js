@@ -1,34 +1,47 @@
 
-function getCoffee() {
-    const selectElement = document.getElementById('chooseCoffee');
-    const chooseCoffee = selectElement.value;
+function getUserNumbers() {
+    const numbersStr = document.getElementById("inputNumbers").value;
+    return numbersStr.split(",").map(num => parseFloat(num));
+}
 
-    function Coffee(nome, endereco, propriedade) {
-        this.nome = nome;
-        this.endereco = endereco;
-        this.propriedade = propriedade;
+
+function calculateMean(numbersList) {
+    const sum = numbersList.reduce((acc, num) => acc + num, 0);
+    return sum / numbersList.length;
+}
+
+
+function calculateMedian(numbersList) {
+    const sortedNumbers = numbersList.slice().sort((a, b) => a - b);
+    const n = sortedNumbers.length;
+    let median = null;
+    if (n % 2 === 0) {
+        median = (sortedNumbers[n / 2 - 1] + sortedNumbers[n / 2]) / 2;
+    } else {
+        median = sortedNumbers[Math.floor(n / 2)];
     }
-
-    const cafe1 = new Coffee("Crio Café", "Av Santos, 302", "Bom coado no melhor custo beneficio");
-    const cafe2 = new Coffee("HM Food", "Benedito Calixto, 139", "Servem almoço executivo durante a semana");
-    const cafe3 = new Coffee("King of the fork", "Arthur de Azevedo, 29", "Melhores expressos e café com leite");
-    const cafe4 = [(cafe1), " ---- ", (cafe2), " ---- ", (cafe3)];
+    return median;
+}
 
 
-    let resultCoffee;
-        if (chooseCoffee === 'cafe1') {
-            resultCoffee = (cafe1);
-        }
-        else if (chooseCoffee === 'cafe2') {
-            resultCoffee = (cafe2);
-        }
-        else if (chooseCoffee === 'cafe3') {
-            resultCoffee = (cafe3);
-        }
-        else if (chooseCoffee === 'cafe4') {
-            resultCoffee = (cafe4);
-        }
+function calculateStandardDeviation(numbersList) {
+    const mean = calculateMean(numbersList);
+    const sumSquares = numbersList.reduce((acc, num) => acc + Math.pow(num - mean, 2), 0);
+    return Math.sqrt(sumSquares / numbersList.length);
+}
 
 
-    alert(JSON.stringify(resultCoffee));
-  }
+function calculateStatistics() {
+    const numbers = getUserNumbers();
+    const mean = calculateMean(numbers);
+    const median = calculateMedian(numbers);
+    const standardDeviation = calculateStandardDeviation(numbers);
+
+    const meanResult = document.getElementById("meanResult");
+    const medianResult = document.getElementById("medianResult");
+    const standardDeviationResult = document.getElementById("standardDeviationResult");
+
+    meanResult.textContent = "Mean: " + mean;
+    medianResult.textContent = "Median: " + median;
+    standardDeviationResult.textContent = "Standard Deviation: " + standardDeviation;
+}
