@@ -11,13 +11,15 @@
     <label>
         <input type="text" id="inputNumbers">
     </label>
-    <button onclick="calculateStatistics()">Calculate</button>
+    <button  id="myBtn" onclick="calculateStatistics()">Calculate</button>
 
     <h2>Results:</h2>
     <p id="meanResult"></p>
     <p id="medianResult"></p>
     <p id="standardDeviationResult"></p>
+    <p id="skewnessResult"></p>
 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./static/index.js"></script>
 </body>
 </html>
